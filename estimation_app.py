@@ -23,7 +23,7 @@ height = 368
 inWidth = width
 inHeight = height
 
-net = cv2.dnn.readNetFromTensorflow("graph_opt1.pb")
+net = cv2.dnn.readNetFromTensorflow("graph_opt.pb")
 
 
 
@@ -50,7 +50,7 @@ thres = st.slider('Threshold for detecting the key points',min_value = 0,value =
 
 thres = thres/100
 
-@st.cache
+
 def poseDetector(frame):
     frameWidth = frame.shape[1]
     frameHeight = frame.shape[0]
