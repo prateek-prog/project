@@ -4,7 +4,7 @@ from PIL import Image
 import numpy as np
 import cv2
 
-DEMO_IMAGE = 'stand.jpg'
+DEMO_IMAGE = 'dead.jpg'
 
 BODY_PARTS = { "Nose": 0, "Neck": 1, "RShoulder": 2, "RElbow": 3, "RWrist": 4,
                "LShoulder": 5, "LElbow": 6, "LWrist": 7, "RHip": 8, "RKnee": 9,
@@ -23,7 +23,7 @@ height = 368
 inWidth = width
 inHeight = height
 
-net = cv2.dnn.readNetFromTensorflow("graph_opt.pb")
+net = cv2.dnn.readNetFromTensorflow("graph_opt1.pb")
 
 
 
