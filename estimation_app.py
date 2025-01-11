@@ -1,7 +1,7 @@
 import streamlit as st
 from PIL import Image
 import numpy as np
-import cv2
+import cv2 as cv
 
 # Constants for body parts and pose pairs
 BODY_PARTS = {
@@ -25,7 +25,7 @@ inHeight = 368
 
 # Load pre-trained model
 try:
-    net = cv2.dnn.readNetFromTensorflow("graph_opt.pb")
+    net = cv.dnn.readNetFromTensorflow("graph_opt.pb")
 except Exception as e:
     st.error(f"Error loading model: {e}")
     st.stop()
@@ -57,14 +57,14 @@ def poseDetector(frame, threshold=0.2):
     frameWidth = frame.shape[1]
     frameHeight = frame.shape[0]
 
-    net.setInput(cv2.dnn.blobFromImage(frame, 1.0, (inWidth, inHeight), (127.5, 127.5, 127.5), swapRB=True, crop=False))
+    net.setInput(cv.dnn.blobFromImage(frame, 1.0, (inWidth, inHeight), (127.5, 127.5, 127.5), swapRB=True, crop=False))
     out = net.forward()
     out = out[:, :19, :, :]  # Only first 19 parts (excluding background)
 
     points = []
     for i in range(len(BODY_PARTS)):
         heatMap = out[0, i, :, :]
-        _, conf, _, point = cv2.minMaxLoc(heatMap)
+        _, conf, _, point = cv.minMaxLoc(heatMap)
         x = (frameWidth * point[0]) / out.shape[3]
         y = (frameHeight * point[1]) / out.shape[2]
         points.append((int(x), int(y)) if conf > threshold else None)
@@ -76,9 +76,9 @@ def poseDetector(frame, threshold=0.2):
         idTo = BODY_PARTS[partTo]
 
         if points[idFrom] and points[idTo]:
-            cv2.line(frame, points[idFrom], points[idTo], (0, 255, 0), 3)
-            cv2.circle(frame, points[idFrom], 5, (0, 0, 255), -1)
-            cv2.circle(frame, points[idTo], 5, (0, 0, 255), -1)
+            cv.line(frame, points[idFrom], points[idTo], (0, 255, 0), 3)
+            cv.circle(frame, points[idFrom], 5, (0, 0, 255), -1)
+            cv.circle(frame, points[idTo], 5, (0, 0, 255), -1)
 
     return frame
 
