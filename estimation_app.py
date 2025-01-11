@@ -91,12 +91,5 @@ except Exception as e:
     st.error(f"Error during pose estimation: {e}")
 
 
-st.subheader('Positions Estimated')
-st.image(
-       output, caption=f"Positions Estimated", use_container_width=True)
-    
-st.markdown('''
-            # 
-             
-            ''')
+
 
