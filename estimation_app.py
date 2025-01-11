@@ -23,7 +23,20 @@ height = 368
 inWidth = width
 inHeight = height
 
-net = cv2.dnn.readNetFromTensorflow("graph_opt.pb")
+import os
+import cv2
+
+# Ensure the model file exists
+MODEL_PATH = "graph_opt.pb"
+if not os.path.exists(MODEL_PATH):
+    raise FileNotFoundError(f"Model file not found at {MODEL_PATH}")
+
+# Load the model
+try:
+    net = cv2.dnn.readNetFromTensorflow(MODEL_PATH)
+except Exception as e:
+    raise RuntimeError(f"Failed to load model: {e}")
+#net = cv2.dnn.readNetFromTensorflow("graph_opt.pb")
 
 
 
