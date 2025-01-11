@@ -25,7 +25,7 @@ inHeight = 368
 
 # Load pre-trained model
 try:
-    net = cv.dnn.readNetFromTensorflow("graph_opt.pb")
+    net = cv.dnn.readNetFromTensorflow("graph_opt1.pb")
 except Exception as e:
     st.error(f"Error loading model: {e}")
     st.stop()
