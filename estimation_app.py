@@ -1,5 +1,4 @@
 import streamlit as st
-
 from PIL import Image
 import numpy as np
 import cv2
@@ -23,20 +22,11 @@ height = 368
 inWidth = width
 inHeight = height
 
-import os
-import cv2
 
-# Ensure the model file exists
-MODEL_PATH = "graph_opt.pb"
-if not os.path.exists(MODEL_PATH):
-    raise FileNotFoundError(f"Model file not found at {MODEL_PATH}")
+
 
 # Load the model
-try:
-    net = cv2.dnn.readNetFromTensorflow(MODEL_PATH)
-except Exception as e:
-    raise RuntimeError(f"Failed to load model: {e}")
-#net = cv2.dnn.readNetFromTensorflow("graph_opt.pb")
+net = cv2.dnn.readNetFromTensorflow("graph_opt.pb")
 
 
 
@@ -67,7 +57,8 @@ thres = thres/100
 def poseDetector(frame):
     frameWidth = frame.shape[1]
     frameHeight = frame.shape[0]
-    
+    net = cv2.dnn.readNetFromTensorflow("graph_opt.pb")
+
     net.setInput(cv2.dnn.blobFromImage(frame, 1.0, (inWidth, inHeight), (127.5, 127.5, 127.5), swapRB=True, crop=False))
     
     out = net.forward()
