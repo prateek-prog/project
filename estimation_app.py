@@ -22,15 +22,6 @@ height = 368
 inWidth = width
 inHeight = height
 
-
-
-
-# Load the model
-net = cv2.dnn.readNetFromTensorflow("graph_opt.pb")
-
-
-
-
 st.title("Human Pose Estimation OpenCV")
 
 st.text('Make Sure you have a clear image with all the parts clearly visible')
